@@ -50,7 +50,7 @@
             <artifactId>localstack</artifactId>
             <version>1.20.3</version>
             <scope>test</scope>
-        </dependency>g
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
