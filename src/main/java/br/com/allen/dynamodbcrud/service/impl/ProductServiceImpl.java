@@ -39,7 +39,11 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public void deleteProductById(String productId) {}
+  public void deleteProductById(String productId) {
+    Key key = Key.builder().partitionValue(productId).build();
+
+    dynamoDbTemplate.delete(key, Product.class);
+  }
 
   @Override
   public void updateProductById(String productId, ProductRequest productRequest) {}
