@@ -12,7 +12,8 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDTO {
+public class ProductResponse {
+  private String id;
   private String name;
   private BigDecimal price;
 }

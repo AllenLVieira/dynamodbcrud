@@ -1,12 +1,12 @@
 package br.com.allen.dynamodbcrud.controller;
 
+import br.com.allen.dynamodbcrud.model.dto.ProductRequest;
+import br.com.allen.dynamodbcrud.model.dto.ProductResponse;
 import br.com.allen.dynamodbcrud.model.entity.Product;
 import br.com.allen.dynamodbcrud.service.ProductService;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/products")
@@ -18,8 +18,19 @@ public class ProductController {
   }
 
   @GetMapping("/{productId}")
-  public ResponseEntity<Product> getProductById(@PathVariable String productId) {
-    Product product = productService.getProductById(productId);
-    return product == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(product);
+  public ResponseEntity<ProductResponse> getProductById(@PathVariable String productId) {
+    ProductResponse response = productService.getProductById(productId);
+    return response == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(response);
+  }
+
+  @GetMapping
+  public ResponseEntity<List<Product>> getAllProducts() {
+    List<Product> products = productService.getAllProducts();
+    return ResponseEntity.ok(products);
+  }
+
+  @PostMapping
+  public void addProduct(@RequestBody ProductRequest request) {
+    productService.addProduct(request);
   }
 }
