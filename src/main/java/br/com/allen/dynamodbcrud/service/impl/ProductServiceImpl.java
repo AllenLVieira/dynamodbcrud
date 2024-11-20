@@ -46,7 +46,24 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public void updateProductById(String productId, ProductRequest productRequest) {}
+  public ProductResponse updateProductById(String productId, ProductRequest productRequest) {
+    Key key = Key.builder().partitionValue(productId).build();
+
+    Product product = dynamoDbTemplate.load(key, Product.class);
+
+    if (product == null) {
+      return null;
+    }
+
+    Product productUpdated =
+        new Product(product.getId(), product.getName(), productRequest.getPrice());
+
+    dynamoDbTemplate.save(productUpdated);
+
+    product = dynamoDbTemplate.load(key, Product.class);
+
+    return new ProductResponse(product.getId(), product.getName(), product.getPrice());
+  }
 
   @Override
   public List<Product> getAllProducts() {

@@ -12,7 +12,7 @@ public interface ProductService {
 
   void deleteProductById(String productId);
 
-  void updateProductById(String productId, ProductRequest productRequest);
+  ProductResponse updateProductById(String productId, ProductRequest productRequest);
 
   List<Product> getAllProducts();
 }
